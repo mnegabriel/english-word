@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Bus Fortal',
+    title: 'English Word',
     htmlAttrs: {
       lang: 'pt-BR',
     },
@@ -12,7 +12,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Confira informações sobre as linhas de onibus da cidade de Fortaleza',
+          'Search and learn words from the english language',
       },
       { name: 'format-detection', content: 'telephone=no' },
     ],
@@ -23,7 +23,9 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    "~/plugins/localstorage.client.js"
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -47,7 +49,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.BUS_BASE_URL,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
