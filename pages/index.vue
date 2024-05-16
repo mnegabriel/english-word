@@ -14,7 +14,7 @@
       <AppButton type="submit" :disabled="loading">Search</AppButton>
     </form>
 
-    <ul>
+    <ul class="space-y-3">
       <li v-for="(item, i) of results" :key="i">
         <WordCard :word="item">
           <template #top>
@@ -34,6 +34,7 @@
 
 <script>
 import Vue from 'vue'
+import { mapActions } from 'vuex'
 
 export default Vue.extend({
   name: 'IndexPage',
@@ -47,6 +48,10 @@ export default Vue.extend({
   },
 
   methods: {
+    ...mapActions({
+      toggleSaveWord: 'toggleSaveWord',
+    }),
+
     async searchItinerary() {
       try {
         this.loading = true
@@ -55,6 +60,7 @@ export default Vue.extend({
         this.results = data
         //
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error(error)
         //
       } finally {
@@ -63,15 +69,8 @@ export default Vue.extend({
     },
 
     /** @param {import('../types').Word} word */
-    toggleSaveWord(word) {
-      this.isWordSaved(word)
-        ? this.$store.commit('removeWord', word)
-        : this.$store.commit('addWord', word)
-    },
-
-    /** @param {import('../types').Word} word */
     isWordSaved(word) {
-      return this.$store.getters.getSavedWordsIndex.has(word.word)
+      return this.$store.getters.savedWordsIndex.has(JSON.stringify(word))
     },
   },
 })
